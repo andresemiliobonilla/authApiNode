@@ -1,13 +1,14 @@
 const User = require('../models/User');
 const authCtrl = {};
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../config/auth.secret')
 
 authCtrl.postRegister = async (req, res) => {
-    const {user, email, pass} = req.body;
-    const codePass = await bcrypt.hashSync(pass, 8);
+    const codePass = await bcrypt.hashSync(req.body.pass, 8);
     const newUser = await  new User({
-        user,
-        email,
+        user: req.body.user,
+        email: req.body.email,
         pass: codePass
     })
     await newUser.save((err, res) => {
@@ -36,7 +37,16 @@ authCtrl.postLogin = async (req, res) => {
     {
         res.json({message: "pass invalido"});
     }
-    res.json({message: "registrado"})
+    const token = jwt.sign({id: user.id}, config.secret, {
+        expiresIn: 3600
+    })
+    res.status(200).send({
+        id: user._id,
+        user: user.user,
+        email: user.email,
+        pass: user.pass,
+        token: token
+    })
 }
 
 module.exports = authCtrl;
