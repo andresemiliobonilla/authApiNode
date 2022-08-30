@@ -1,12 +1,14 @@
 const User = require('../models/User');
 const authCtrl = {};
+const bcrypt = require('bcryptjs');
 
 authCtrl.postRegister = async (req, res) => {
     const {user, email, pass} = req.body;
+    const codePass = await bcrypt.hashSync(pass, 8);
     const newUser = await  new User({
         user,
         email,
-        pass
+        pass: codePass
     })
     await newUser.save((err, res) => {
         if(err)
@@ -15,24 +17,26 @@ authCtrl.postRegister = async (req, res) => {
         }
         else
         {
-            console.log("registrad")
+            console.log("registrado");
         }
     });
 }
 
 authCtrl.postLogin = async (req, res) => {
-    const {user, pass} = req.body;
-    const veriUser = await User.findOne({user});
-    if(!veriUser)
+    const user = await User.findOne({user : req.body.user});
+    if(!user)
     {
-        res.json({message: "no existe el usuario"})
+        res.json({message: "no existe el usuario"});
     }
-    const veriPass = await User.findOne({pass});
+    const veriPass = bcrypt.compareSync(
+        req.body.pass,
+        user.pass
+    )
     if(!veriPass)
     {
-        res.json({message: "pass invalido"})
+        res.json({message: "pass invalido"});
     }
-    res.json({message: "inicio de sesion"})
+    res.json({message: "registrado"})
 }
 
 module.exports = authCtrl;
