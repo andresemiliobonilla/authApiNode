@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const routes = require('./routes/auth.routes');
+require('./config/db');
 
 app.set('port', 3000);
 app.use(express.json());
