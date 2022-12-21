@@ -1,7 +1,6 @@
 {
-  "name": "authapinode",
+  "name": "ls",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index",
@@ -11,9 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresemiliobonilla/authApiNode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andresemiliobonilla/authApiNode/issues"
+  },
+  "homepage": "https://github.com/andresemiliobonilla/authApiNode#readme",
+  "description": ""
 }
