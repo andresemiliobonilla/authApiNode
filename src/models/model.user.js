@@ -9,6 +9,12 @@ const User = new Schema({
             type: Schema.Types.ObjectId,
             ref: "Role"
         }
+    ],
+    campanias: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Campania"
+        }
     ]
 })
 

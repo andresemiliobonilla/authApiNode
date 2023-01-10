@@ -95,6 +95,7 @@ ctrlAuth.postLogin = async (req, res) => {
         usuario: veriUser.user,
         email: veriUser.email,
         myToken: token,
+        id: veriUser._id,
         role: autorizacion
     })
 }

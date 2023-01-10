@@ -13,7 +13,7 @@ ctrlCrud.getUsers = async (req, res) => {
 }
 
 ctrlCrud.getUser = async (req, res) => {
-    const oneUser = await User.findById(req.params.id);
+    const oneUser = await User.findById(req.params.id).populate("roles");
     if(oneUser)
     {
         res.json({message: oneUser})
@@ -21,27 +21,7 @@ ctrlCrud.getUser = async (req, res) => {
     else{
         res.json({message: "no hay usuario"})
     }
-
 }
-
-// ctrlCrud.postUser = (req, res) => {
-//     const {name, user, email, password} = req.body;
-//     const newUser = new User({
-//         name,
-//         user,
-//         email,
-//         password
-//     });
-//     newUser.save((err) => {
-//         if(err)
-//         {
-//             res.json({message: err})
-//         }
-//         else{
-//             res.json({message: "registrado"})
-//         }
-//     })
-// }
 
 ctrlCrud.updateUser = async (req, res) => {
     const {user, email, password} = req.body;

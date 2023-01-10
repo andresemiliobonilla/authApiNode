@@ -4,7 +4,6 @@ const Role = require("../models/model.roles");
 
 const verifyUser = (req, res, next) => {
     const token = req.headers["x-access-token"];
-
     if(!token)
     {
         return res.json({message: "no hay token"})
